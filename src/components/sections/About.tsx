@@ -5,21 +5,23 @@ import { Box, Workflow, Zap } from "lucide-react";
 
 const blueprints = [
   {
-    title: "High Altary",
-    content: "Hardware forged in the fires of overclocked rendering clusters.",
+    title: "The Creator",
+    content:
+      "Student, Developer, and YouTuber. Crafting digital experiences across Roblox, Discord, and Telegram.",
     icon: Box,
     color: "from-blue-500/20 to-transparent",
   },
   {
-    title: "Powers",
-    content: "Synthesizing clean code from pure digital entropy and caffeine.",
+    title: "Musical Pulse",
+    content:
+      "Music producer and audio editor. Finding harmony in code and melody on the piano and guitar.",
     icon: Workflow,
     color: "from-purple-500/20 to-transparent",
   },
   {
-    title: "Weaknesses",
+    title: "Chaos Lab",
     content:
-      "Daylight, stable internet, and the dreaded 'well-documented' API.",
+      "Experimenting with local AI models, Raspberry Pi servers, and automated cloud workflows.",
     icon: Zap,
     color: "from-green-500/20 to-transparent",
   },
@@ -32,7 +34,7 @@ export default function About() {
       className="py-32 px-8 max-w-7xl mx-auto border-t border-white/5"
     >
       <div className="flex items-center gap-6 mb-20">
-        <div className="w-10 h-[1px] bg-accent" />
+        <div className="w-10 h-px bg-accent" />
         <motion.h2
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -49,21 +51,25 @@ export default function About() {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.1 }}
-            className="group relative h-[500px] bg-white/5 border border-white/5 overflow-hidden flex flex-col justify-end p-10 hover:border-accent/30 transition-all"
+            className="group relative h-[400px] md:h-[500px] bg-white/5 border border-white/5 overflow-hidden flex flex-col justify-end p-8 md:p-10 hover:border-accent/30 transition-all"
           >
             {/* Mock "Image" area */}
             <div
-              className={`absolute inset-0 bg-gradient-to-b ${item.color} -z-10`}
+              className={`absolute inset-0 bg-linear-to-b ${item.color} -z-10`}
             />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-2/3 opacity-20 group-hover:opacity-40 transition-opacity">
-              <item.icon size={160} strokeWidth={0.5} className="text-accent" />
+              <item.icon
+                size={120}
+                strokeWidth={0.5}
+                className="text-accent md:size-[160px]"
+              />
             </div>
 
             <div className="relative z-10">
-              <h3 className="text-2xl font-bold mb-4 uppercase tracking-tighter group-hover:text-accent transition-colors">
+              <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4 uppercase tracking-tighter group-hover:text-accent transition-colors">
                 {item.title}
               </h3>
-              <p className="text-sm text-gray-400 leading-relaxed font-mono uppercase tracking-wider">
+              <p className="text-xs md:text-sm text-gray-400 leading-relaxed font-mono uppercase tracking-wider">
                 {item.content}
               </p>
             </div>

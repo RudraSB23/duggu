@@ -6,20 +6,28 @@ import { motion } from "framer-motion";
 const COMMAND_RESPONSES: Record<string, string | string[]> = {
   help: [
     "Available modules:",
-    "  whois_duggu - Reveal biological interface stats",
-    "  projects    - List current chaos builds",
-    "  status      - Display system health",
-    "  clear       - Wipe the buffer",
+    "  whois_duggu      - Reveal biological interface stats",
+    "  projects         - List current builds",
+    "  status           - Display system health",
+    "  access_sanctuary - [RESTRICTED ACCESS]",
+    "  clear            - Wipe the buffer",
   ],
   whois_duggu:
-    "A biological interface for translating caffeine into digital entropy.",
+    "Student, Developer, and Content Creator. Specializing in bots, games, and digital chaos.",
   projects:
-    "Directing to #projects: Void Shader, Chaos-Monkey v.1, Nocturnal Frequency.",
+    "Directing to #projects: Discord Bots, Telegram Ecosystem, Roblox Games, Cloud Lab.",
   status: "CORE: STABLE. CAFFEINE: CRITICAL. CHAOS: NOMINAL.",
+  access_sanctuary: "INITIALIZING SANCTUARY PROTOCOLS... ACCESS GRANTED.",
   clear: "Buffer cleared.",
 };
 
-export default function TerminalSection() {
+interface TerminalSectionProps {
+  onSanctuaryAccess?: () => void;
+}
+
+export default function TerminalSection({
+  onSanctuaryAccess,
+}: TerminalSectionProps) {
   const [history, setHistory] = useState<string[]>([
     "DUGGU OS v.4.0.2 - CORE INITIALIZED",
     "Welcome to the DC DUGGU Universe Interface.",
@@ -31,11 +39,28 @@ export default function TerminalSection() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const cmd = input.toLowerCase().trim().replace(" ", "_");
+    const parts = input.trim().split(/\s+/);
+    const cmd = parts[0].toLowerCase();
+    const args = parts.slice(1).map((a) => a.toLowerCase());
     const newHistory = [...history, `USER@DUGGU:~$ ${input}`];
 
     if (cmd === "clear") {
       setHistory(["DUGGU OS v.4.0.2 - BUFFER RESET", " "]);
+    } else if (cmd === "access_sanctuary") {
+      if (args.includes("7rue_ch405")) {
+        newHistory.push("INITIALIZING SANCTUARY PROTOCOLS... ACCESS GRANTED.");
+        setHistory(newHistory);
+        if (onSanctuaryAccess) {
+          setTimeout(onSanctuaryAccess, 1000);
+        }
+      } else {
+        newHistory.push(
+          "PERMISSION DENIED: Access token required.",
+          "Hint: Search for the blueprint logs.",
+          "Format: access_sanctuary [TOKEN]",
+        );
+        setHistory(newHistory);
+      }
     } else if (COMMAND_RESPONSES[cmd]) {
       const response = COMMAND_RESPONSES[cmd];
       if (Array.isArray(response)) {
@@ -82,7 +107,7 @@ export default function TerminalSection() {
 
         <div
           ref={scrollRef}
-          className="p-8 overflow-y-auto font-mono text-sm md:text-base selection:bg-accent selection:text-black flex-grow"
+          className="p-4 md:p-8 overflow-y-auto font-mono text-[13px] md:text-base selection:bg-accent selection:text-black grow"
         >
           {history.map((line, i) => (
             <div
@@ -99,8 +124,7 @@ export default function TerminalSection() {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              autoFocus
-              className="bg-transparent border-none outline-none flex-grow text-white caret-accent"
+              className="bg-transparent border-none outline-none grow text-white caret-accent"
               spellCheck={false}
               placeholder="..."
             />

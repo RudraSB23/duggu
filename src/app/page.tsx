@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import ThreeBackground from "@/components/layout/ThreeBackground";
 import Navbar from "@/components/layout/Navbar";
 import Hero from "@/components/sections/Hero";
@@ -6,10 +9,19 @@ import Projects from "@/components/sections/Projects";
 import PianoSection from "@/components/sections/Piano";
 import TerminalSection from "@/components/sections/Terminal";
 import SecretOverlay from "@/components/ui/SecretOverlay";
+import SanctuaryEasterEgg from "@/components/ui/SanctuaryEasterEgg";
+import { AnimatePresence } from "framer-motion";
 
 export default function Home() {
+  const [showSanctuary, setShowSanctuary] = useState(false);
+
   return (
     <main className="relative min-h-screen">
+      <AnimatePresence>
+        {showSanctuary && (
+          <SanctuaryEasterEgg onClose={() => setShowSanctuary(false)} />
+        )}
+      </AnimatePresence>
       {/* Background Layer */}
       <ThreeBackground />
 
@@ -23,13 +35,13 @@ export default function Home() {
         <About />
         <Projects />
         <PianoSection />
-        <TerminalSection />
+        <TerminalSection onSanctuaryAccess={() => setShowSanctuary(true)} />
 
         {/* Footer */}
         <footer className="py-20 text-center text-gray-600 font-hacker text-sm">
-          <p>© 2026 DC DUGGU. ALL RIGHTS RESERVED BY THE CHAOS ENGINE.</p>
-          <p className="mt-2 text-xs">
-            MADE WITH TOO MUCH COFFEE AND 2AM REGRETS.
+          <p>© 2026 DC DUGGU. ALL RIGHTS RESERVED</p>
+          <p className="mt-2 text-xs uppercase tracking-widest">
+            MADE WITH TOO MUCH COFFEE AND 3AM REGRETS.
           </p>
         </footer>
       </div>

@@ -4,57 +4,47 @@ import { motion } from "framer-motion";
 
 const stats = [
   {
-    label: "DEBUGGING",
-    value: "99%",
-    status: "OPTIMIZED",
-    color: "text-accent",
+    label: "Lines of Code",
+    value: "1,248,392+",
+    unit: "",
   },
   {
-    label: "PIANO FLUENCY",
-    value: "8000+",
-    status: "MAINTAINED",
-    color: "text-accent",
+    label: "Caffeine Consumed",
+    value: "482 L",
+    unit: "",
   },
   {
-    label: "CHAOS ENERGY",
-    value: "CRITICAL",
-    status: "MODULATING",
-    color: "text-accent",
+    label: "Sleep Debt",
+    value: "∞ HRS",
+    unit: "",
   },
   {
-    label: "SLEEP",
-    value: "INFINITE",
-    status: "RECOVERING",
-    color: "text-accent",
+    label: "System Core",
+    value: "99.9%",
+    unit: "",
   },
 ];
 
 export function StatsBar() {
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 px-8 max-w-7xl mx-auto">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 max-w-6xl mx-auto px-4">
       {stats.map((stat, i) => (
         <motion.div
           key={stat.label}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: i * 0.1 }}
-          className="p-6 bg-white/5 border border-white/5 relative overflow-hidden group hover:border-accent/30 transition-colors"
+          className="glass-card p-6 md:p-8 relative group overflow-hidden"
         >
-          <div className="text-[10px] font-bold text-gray-500 mb-2 uppercase tracking-[0.2em]">
+          <div className="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
             {stat.label}
           </div>
-          <div className="text-3xl font-orbitron font-bold tracking-tighter mb-1 uppercase">
+          <div className="text-2xl md:text-4xl font-bold tracking-tighter mb-2 neon-glow">
             {stat.value}
           </div>
-          <div className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-            <span className="text-[8px] font-mono text-gray-400 uppercase tracking-widest">
-              {stat.status}
-            </span>
-          </div>
 
-          {/* Subtle accent line */}
-          <div className="absolute bottom-0 left-0 w-full h-[2px] bg-accent/20 group-hover:bg-accent transition-colors" />
+          <div className="absolute top-0 left-0 w-full h-[1px] bg-linear-to-r from-transparent via-accent/20 to-transparent" />
+          <div className="absolute top-0 left-0 w-[1px] h-full bg-linear-to-b from-transparent via-accent/20 to-transparent" />
         </motion.div>
       ))}
     </div>

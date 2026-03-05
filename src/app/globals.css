@@ -10,9 +10,9 @@
   --background: #0a0f12;
   --foreground: #ffffff;
   --neon-cyan: #00f2ff;
-  --neon-pink: #ff00f7;
-  --card-bg: #11181c;
-  --border-color: rgba(0, 242, 255, 0.1);
+  --neon-purple: #bc13fe;
+  --card-bg: rgba(255, 255, 255, 0.03);
+  --card-border: rgba(255, 255, 255, 0.06);
 }
 
 body {
@@ -39,13 +39,14 @@ h3,
 
 .neon-glow {
   text-shadow:
-    0 0 10px rgba(0, 242, 255, 0.5),
-    0 0 20px rgba(0, 242, 255, 0.2);
+    0 0 10px var(--neon-cyan),
+    0 0 20px var(--neon-cyan),
+    0 0 30px var(--neon-cyan);
 }
 
 .glass-card {
   background: var(--card-bg);
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--card-border);
   backdrop-filter: blur(8px);
 }
 
@@ -97,14 +98,14 @@ h3,
   left: 0;
   z-index: 50;
   pointer-events: none;
-  animation: scanline 8s linear infinite;
+  animation: scan 4s linear infinite;
 }
 
-@keyframes scanline {
-  0% {
-    transform: translateY(-100%);
+@keyframes scan {
+  from {
+    top: 0;
   }
-  100% {
-    transform: translateY(100vh);
+  to {
+    top: 100%;
   }
 }
