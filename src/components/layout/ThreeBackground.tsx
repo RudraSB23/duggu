@@ -10,8 +10,8 @@ function StarField() {
 
   // Custom particle generator
   const sphere = useMemo(() => {
-    const positions = new Float32Array(5000 * 3);
-    for (let i = 0; i < 5000; i++) {
+    const positions = new Float32Array(2000 * 3);
+    for (let i = 0; i < 2000; i++) {
       positions[i * 3] = (Math.random() - 0.5) * 10;
       positions[i * 3 + 1] = (Math.random() - 0.5) * 10;
       positions[i * 3 + 2] = (Math.random() - 0.5) * 10;
@@ -21,8 +21,8 @@ function StarField() {
 
   useFrame((state, delta) => {
     if (ref.current) {
-      ref.current.rotation.x -= delta / 10;
-      ref.current.rotation.y -= delta / 15;
+      ref.current.rotation.x -= delta / 30;
+      ref.current.rotation.y -= delta / 50;
     }
   });
 
@@ -31,11 +31,12 @@ function StarField() {
       <Points ref={ref} positions={sphere} stride={3} frustumCulled={false}>
         <PointMaterial
           transparent
-          color="#00ffff"
-          size={0.015}
+          color="#00f2ff"
+          size={0.008}
           sizeAttenuation={true}
           depthWrite={false}
           blending={THREE.AdditiveBlending}
+          opacity={0.4}
         />
       </Points>
     </group>
@@ -44,7 +45,14 @@ function StarField() {
 
 export default function ThreeBackground() {
   return (
-    <div className="fixed inset-0 -z-10 bg-[#050505]">
+    <div className="fixed inset-0 -z-10 bg-[#0a0f12]">
+      <div
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        style={{
+          backgroundImage: "radial-gradient(#00f2ff 1px, transparent 0)",
+          backgroundSize: "40px 40px",
+        }}
+      />
       <Canvas camera={{ position: [0, 0, 1] }}>
         <StarField />
       </Canvas>

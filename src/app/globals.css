@@ -3,79 +3,76 @@
 @theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-accent: var(--neon-cyan);
 }
 
 :root {
-  --background: #050505;
+  --background: #0a0f12;
   --foreground: #ffffff;
-  --neon-cyan: #00ffff;
-  --neon-pink: #ff00ff;
-  --neon-green: #39ff14;
+  --neon-cyan: #00f2ff;
+  --neon-pink: #ff00f7;
+  --card-bg: #11181c;
+  --border-color: rgba(0, 242, 255, 0.1);
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
   overflow-x: hidden;
+  font-family: var(--font-inter), sans-serif;
 }
 
 h1,
 h2,
 h3,
-h4,
-.font-hacker {
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+.font-orbitron {
+  font-family: var(--font-orbitron), sans-serif;
+  letter-spacing: -0.02em;
 }
 
-.neon-text {
-  text-shadow:
-    0 0 5px var(--neon-cyan),
-    0 0 10px var(--neon-cyan);
-}
-
-.neon-text-pink {
-  text-shadow:
-    0 0 5px var(--neon-pink),
-    0 0 10px var(--neon-pink);
-}
-
-.neon-border {
-  box-shadow:
-    0 0 5px var(--neon-cyan),
-    inset 0 0 5px var(--neon-cyan);
-  border: 1px solid var(--neon-cyan);
-}
-
-.glass {
-  background: rgba(10, 10, 10, 0.7);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(0, 255, 255, 0.2);
-}
-
-.chaos-gradient {
-  background: linear-gradient(45deg, #00ffff, #ff00ff, #39ff14);
-  background-size: 200% 200%;
-  animation: gradient-shift 5s ease infinite;
-  background-clip: text;
+.text-gradient {
+  background: linear-gradient(to bottom, #fff 0%, #aaa 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-@keyframes gradient-shift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+.neon-glow {
+  text-shadow:
+    0 0 10px rgba(0, 242, 255, 0.5),
+    0 0 20px rgba(0, 242, 255, 0.2);
 }
 
+.glass-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(8px);
+}
+
+.cyan-btn {
+  background: var(--neon-cyan);
+  color: #000;
+  box-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
+}
+
+.cyan-btn:hover {
+  box-shadow: 0 0 25px rgba(0, 242, 255, 0.6);
+  transform: translateY(-2px);
+}
+
+.outline-btn {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.outline-btn:hover {
+  border-color: var(--neon-cyan);
+  background: rgba(0, 242, 255, 0.05);
+}
+
+/* Custom scrollbar matching the dark theme */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -83,10 +80,31 @@ h4,
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #222;
-  border-radius: 4px;
+  background: #1a1f24;
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--neon-cyan);
+}
+
+.scanline {
+  width: 100%;
+  height: 2px;
+  background: rgba(0, 242, 255, 0.1);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  pointer-events: none;
+  animation: scanline 8s linear infinite;
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
 }

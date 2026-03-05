@@ -1,93 +1,93 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { music } from "@/lib/data";
-import { Play, Pause, SkipBack, SkipForward, Music } from "lucide-react";
+import { Play, SkipBack, SkipForward, Info } from "lucide-react";
 import { useState } from "react";
 
 export default function PianoSection() {
-  const [isPlaying, setIsPlaying] = useState<number | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   return (
-    <section id="piano" className="py-24 px-4 max-w-6xl mx-auto">
-      <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-4">
+    <section
+      id="piano"
+      className="py-32 px-8 max-w-7xl mx-auto border-t border-white/5 bg-[#0a0f12]/50"
+    >
+      <div className="text-center mb-16">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          className="text-4xl md:text-6xl font-bold neon-text"
+          className="text-3xl font-bold uppercase tracking-[0.4em] mb-4"
         >
-          2AM CONCERT
+          Nocturnal Frequency
         </motion.h2>
-        <p className="text-gray-400 font-hacker max-w-sm text-right">
-          Recorded in total darkness with 0% logic and 100% feeling.
-        </p>
+        <div className="w-12 h-[1px] bg-accent mx-auto" />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        {/* Visualizer Mock */}
-        <div className="glass rounded-3xl p-8 aspect-video flex items-end justify-between gap-1 overflow-hidden relative">
-          <div className="absolute inset-0 flex items-center justify-center -z-10 opacity-10">
-            <Music size={200} className="animate-spin-slow" />
+      <div className="max-w-4xl mx-auto">
+        {/* Central Visualizer Card */}
+        <div className="p-12 bg-white/5 border border-white/5 rounded-sm relative overflow-hidden mb-12">
+          <div className="flex items-end justify-center gap-1.5 h-48">
+            {[...Array(40)].map((_, i) => (
+              <motion.div
+                key={i}
+                animate={
+                  isPlaying
+                    ? {
+                        height: [
+                          "10%",
+                          `${Math.random() * 80 + 20}%`,
+                          `${Math.random() * 60 + 10}%`,
+                          "15%",
+                        ],
+                      }
+                    : { height: "10%" }
+                }
+                transition={{
+                  duration: 0.6 + Math.random(),
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="w-1.5 bg-accent/40 rounded-full"
+              />
+            ))}
           </div>
-          {[...Array(30)].map((_, i) => (
-            <motion.div
-              key={i}
-              animate={
-                isPlaying !== null
-                  ? {
-                      height: [
-                        "10%",
-                        `${Math.random() * 80 + 20}%`,
-                        `${Math.random() * 50 + 10}%`,
-                        "10%",
-                      ],
-                    }
-                  : { height: "10%" }
-              }
-              transition={{
-                duration: 0.5 + Math.random(),
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="w-full bg-cyan-400/50 rounded-full"
-            />
-          ))}
+
+          {/* Subtle scanning line over visualizer */}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-accent/5 to-transparent animate-pulse" />
         </div>
 
-        {/* Tracks List */}
-        <div className="space-y-4">
-          {music.map((track) => (
-            <motion.div
-              key={track.id}
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              className={`p-6 rounded-2xl glass border-white/5 flex items-center gap-6 group transition-all ${isPlaying === track.id ? "border-cyan-500/50" : ""}`}
+        {/* Controls and Track Info */}
+        <div className="flex flex-col items-center">
+          <div className="mb-8 text-center">
+            <div className="text-[10px] font-bold text-accent uppercase tracking-widest mb-2">
+              NOW PLAYING
+            </div>
+            <h3 className="text-xl font-bold uppercase tracking-tight">
+              Midnight Armor - UNPATCHED
+            </h3>
+          </div>
+
+          <div className="flex items-center gap-12">
+            <button className="text-gray-500 hover:text-white transition-colors">
+              <SkipBack size={24} />
+            </button>
+            <button
+              onClick={() => setIsPlaying(!isPlaying)}
+              className="w-16 h-16 rounded-full bg-accent flex items-center justify-center text-black hover:scale-105 transition-all shadow-lg shadow-accent/20"
             >
-              <button
-                onClick={() =>
-                  setIsPlaying(isPlaying === track.id ? null : track.id)
-                }
-                className="w-12 h-12 rounded-full bg-cyan-500 flex items-center justify-center text-black hover:scale-110 transition-transform flex-shrink-0"
-              >
-                {isPlaying === track.id ? (
-                  <Pause size={24} />
-                ) : (
-                  <Play size={24} className="ml-1" />
-                )}
-              </button>
-
-              <div className="flex-grow">
-                <h3 className="font-bold text-lg mb-1">{track.title}</h3>
-                <p className="text-gray-400 text-sm line-clamp-1">
-                  {track.description}
-                </p>
-              </div>
-
-              <div className="text-gray-500 font-hacker text-sm">
-                {track.duration}
-              </div>
-            </motion.div>
-          ))}
+              {isPlaying ? (
+                <div className="flex gap-1.5">
+                  <div className="w-1.5 h-6 bg-black" />
+                  <div className="w-1.5 h-6 bg-black" />
+                </div>
+              ) : (
+                <Play size={28} className="ml-1" />
+              )}
+            </button>
+            <button className="text-gray-500 hover:text-white transition-colors">
+              <SkipForward size={24} />
+            </button>
+          </div>
         </div>
       </div>
     </section>

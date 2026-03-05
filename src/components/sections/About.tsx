@@ -1,105 +1,76 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Shield, Zap, Skull, Activity } from "lucide-react";
+import { Box, Workflow, Zap } from "lucide-react";
 
-const stats = [
+const blueprints = [
   {
-    label: "Debugging Skill",
-    value: 1.2,
-    unit: "%",
-    icon: Shield,
-    color: "text-blue-400",
-  },
-  {
-    label: "Chaos Energy",
-    value: 9000,
-    unit: "kJ",
-    icon: Zap,
-    color: "text-yellow-400",
-  },
-  {
-    label: "Piano Level",
-    value: 2,
-    unit: "am",
-    icon: Activity,
-    color: "text-green-400",
-  },
-  {
-    label: "Sleep Deprivation",
-    value: 404,
-    unit: "h",
-    icon: Skull,
-    color: "text-red-400",
-  },
-];
-
-const cards = [
-  {
-    title: "Origin Story",
-    content:
-      "Legend says Duggu was born from a recursive loop in a Commodore 64. He emerged with a piano under one arm and a malfunctioning soldering iron in the other.",
+    title: "High Altary",
+    content: "Hardware forged in the fires of overclocked rendering clusters.",
+    icon: Box,
+    color: "from-blue-500/20 to-transparent",
   },
   {
     title: "Powers",
-    content:
-      "Can center a div in under 3 hours. Able to summon blue screens of death through sheer willpower. Immunity to caffeine.",
+    content: "Synthesizing clean code from pure digital entropy and caffeine.",
+    icon: Workflow,
+    color: "from-purple-500/20 to-transparent",
   },
   {
     title: "Weaknesses",
     content:
-      "Daylight, stable internet connections, and 'well-documented' APIs. Also, cookies (the edible and browser kind).",
-  },
-  {
-    title: "Current Status",
-    content:
-      "Attempting to compile the universe in TypeScript. Current progress: 0.0000001%. Error: Universe is too large to represent as a type.",
+      "Daylight, stable internet, and the dreaded 'well-documented' API.",
+    icon: Zap,
+    color: "from-green-500/20 to-transparent",
   },
 ];
 
 export default function About() {
   return (
-    <section id="about" className="py-24 px-4 max-w-6xl mx-auto">
-      <motion.h2
-        initial={{ opacity: 0, x: -50 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        className="text-4xl md:text-6xl font-bold mb-16 neon-text"
-      >
-        WHO IS DUGGU?
-      </motion.h2>
+    <section
+      id="about"
+      className="py-32 px-8 max-w-7xl mx-auto border-t border-white/5"
+    >
+      <div className="flex items-center gap-6 mb-20">
+        <div className="w-10 h-[1px] bg-accent" />
+        <motion.h2
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          className="text-2xl font-bold tracking-[0.3em] uppercase"
+        >
+          The Blueprint: <span className="text-gray-500">Origins & Powers</span>
+        </motion.h2>
+      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
-        {stats.map((stat, i) => (
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {blueprints.map((item, i) => (
           <motion.div
-            key={stat.label}
+            key={item.title}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.1 }}
-            className="glass p-6 rounded-2xl border-cyan-500/20 text-center"
+            className="group relative h-[500px] bg-white/5 border border-white/5 overflow-hidden flex flex-col justify-end p-10 hover:border-accent/30 transition-all"
           >
-            <stat.icon className={`mx-auto mb-4 ${stat.color}`} size={32} />
-            <div className="text-3xl font-bold mb-1">
-              {stat.value}
-              {stat.unit}
+            {/* Mock "Image" area */}
+            <div
+              className={`absolute inset-0 bg-gradient-to-b ${item.color} -z-10`}
+            />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-2/3 opacity-20 group-hover:opacity-40 transition-opacity">
+              <item.icon size={160} strokeWidth={0.5} className="text-accent" />
             </div>
-            <div className="text-gray-400 text-sm">{stat.label}</div>
-          </motion.div>
-        ))}
-      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {cards.map((card, i) => (
-          <motion.div
-            key={card.title}
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ delay: i * 0.1 }}
-            className="glass p-8 rounded-3xl border-pink-500/20 hover:border-pink-500/50 transition-colors group"
-          >
-            <h3 className="text-2xl font-bold mb-4 text-pink-400 group-hover:neon-text-pink transition-all">
-              {card.title}
-            </h3>
-            <p className="text-gray-400 leading-relaxed">{card.content}</p>
+            <div className="relative z-10">
+              <h3 className="text-2xl font-bold mb-4 uppercase tracking-tighter group-hover:text-accent transition-colors">
+                {item.title}
+              </h3>
+              <p className="text-sm text-gray-400 leading-relaxed font-mono uppercase tracking-wider">
+                {item.content}
+              </p>
+            </div>
+
+            {/* Corner detail */}
+            <div className="absolute top-4 right-4 w-2 h-2 border-t border-r border-white/20" />
+            <div className="absolute bottom-4 left-4 w-2 h-2 border-b border-l border-white/20" />
           </motion.div>
         ))}
       </div>
