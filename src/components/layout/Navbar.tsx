@@ -31,8 +31,12 @@ export default function Navbar() {
         className="fixed top-0 left-0 right-0 z-50 px-6 md:px-8 py-4 flex items-center justify-between border-b border-white/5 bg-black/80 backdrop-blur-md"
       >
         <Link href="#hero" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 rounded-sm bg-accent flex items-center justify-center text-black font-bold text-xs group-hover:bg-white transition-colors">
-            DD
+          <div className="w-10 h-10 rounded-sm overflow-hidden flex items-center justify-center group-hover:scale-110 transition-transform">
+            <img
+              src="/icon.png"
+              alt="DD Logo"
+              className="w-full h-full object-cover"
+            />
           </div>
           <span className="font-orbitron font-bold tracking-tighter text-sm uppercase group-hover:text-accent transition-colors">
             DC DUGGU
